@@ -1,0 +1,83 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+{% load less %}
+{% load compress %}
+{% load compile_static %}
+<!--link rel="stylesheet"  href="{{STATIC_URL}}{% compile "css/xuan.less" %}" /-->
+{% compress css %}
+<link rel="stylesheet" type="text/less"  href="{{STATIC_URL}}css/xuan.less" />
+{% endcompress %}  
+</head>
+  <body>
+        <nav class="xs-navbar">
+          <div class="xs-navbar-title">
+             
+            <div class="xs-navbar-name">
+              <h1>
+                <a class="xs-navbar-link" href="#">
+                  Xuan
+                </a>
+              </h1>
+            </div>
+            <div class="xs-navbar-toggle menu-icon"><a href="#"><span>menu</span></a></div>
+          </div>
+          <!-- <section class="top-bar-section">
+            <ul class="right">
+              <li class="divider"></li>
+              <li class="has-dropdown">
+                <a href="#">Main Item 1</a>
+                <ul class="dropdown">
+                  <li><label>Section Name</label></li>
+                  <li class="has-dropdown">
+                    <a href="#" class="">Has Dropdown, Level 1</a>
+                    <ul class="dropdown">
+                      <li><a href="#">Dropdown Options</a></li>
+                      <li><a href="#">Dropdown Options</a></li>
+                      <li><a href="#">Level 2</a></li>
+                      <li><a href="#">Subdropdown Option</a></li>
+                      <li><a href="#">Subdropdown Option</a></li>
+                      <li><a href="#">Subdropdown Option</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li class="divider"></li>
+                  <li><label>Section Name</label></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">See all →</a></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li><a href="#">Main Item 2</a></li>
+              <li class="divider"></li>
+              <li class="has-dropdown">
+                <a href="#">Main Item 3</a>
+                <ul class="dropdown">
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li><a href="#">Dropdown Option</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">See all →</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section> -->
+        </nav>
+	<div class='xs-body-container'>
+        {% block body_block %}Welcome to Xuan!{% endblock %}
+	</div>
+  </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <script src="{% static 'js/json2.js' %}"></script>
+  <script src="{% static 'js/underscore-min.js' %}"></script>
+  <script src="{% static 'js/backbone.js' %}"></script>
+  <script src="{% static 'js/xuan.js' %}"></script>
+  <!--script src="{% static 'js/xuan.view.js' %}"></script-->
+</html>

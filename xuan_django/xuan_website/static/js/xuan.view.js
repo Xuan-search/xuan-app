@@ -1,0 +1,5 @@
+(function ($,$$){
+	Xuan.View = {};
+
+	
+})(jQuery);

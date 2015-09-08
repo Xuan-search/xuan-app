@@ -1,0 +1,18 @@
+{% extends 'basic/layout.html' %}
+
+
+{% block body_block %}
+<form id="search-form" class="search-form">
+    <div class="xs-search-terms">
+        <div class="input-pad">
+            <input id="searchterms" name="searchterms" placeholder="Search" type="text">
+        </div>
+    </div>
+    <div class="clearfix">
+    	<button type="submit" class='xs-es-search-submit xs-button'>
+    		Submit
+    	</button>
+    </div>
+</form>
+<ul class="xs-search-results"></ul>
+{% endblock %}
