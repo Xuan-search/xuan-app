@@ -2,17 +2,23 @@
 
 
 {% block body_block %}
-<form id="search-form" class="search-form">
-    <div class="xs-search-terms">
-        <div class="input-pad">
-            <input id="searchterms" name="searchterms" placeholder="Search" type="text">
-        </div>
-    </div>
-    <div class="clearfix">
-    	<button type="submit" class='xs-es-search-submit xs-button'>
-    		Submit
-    	</button>
-    </div>
-</form>
-<ul class="xs-search-results"></ul>
+
+<div class='xs-search-container'>
+	<h3>Search</h3>
+	<form id="search-form" class="search-form">
+    		<div class="xs-search-terms">
+       			<div class="xs-input-pad">
+            			<input id="searchterms" name="searchterms" placeholder="Search" type="text"/>
+        			<span>Match phrase exactly</span>
+				<input class='xs-search-checkbox' name='exact-search' type='checkbox' checked/>
+			</div>
+    		</div>
+    		<div class="clearfix">
+    			<button type="submit" class='xs-es-search-submit xs-button'>
+    				Submit
+    			</button>
+    		</div>
+	</form>
+	<ul class="xs-search-results"></ul>
+</div>
 {% endblock %}

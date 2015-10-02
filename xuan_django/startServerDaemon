@@ -1,0 +1,2 @@
+#!/bin/bash
+uwsgi --socket :8001 --module xuan_django.wsgi --daemonize=django_error.log

@@ -129,3 +129,5 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME' : 'haystack',
     }
 }
+
+LOGIN_URL = '/account/login'

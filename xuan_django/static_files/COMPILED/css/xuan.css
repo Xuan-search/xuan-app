@@ -1,10 +1,81 @@
+.zim_info,
+.zim_pdf,
+.zim_epub {
+  display: none;
+}
 nav.xs-navbar {
   height: 100px;
   width: 100%;
-  position: fixed;
-  top: 0;
-  background-color: #eeeeee;
+  background-color: #7db56b;
+}
+nav.xs-navbar a {
+  color: #000000 !important;
+  text-decoration: none;
+}
+nav.xs-navbar a :visited {
+  color: #111111;
+}
+nav.xs-navbar .navbar-right {
+  margin-right: 15px;
 }
 div.xs-body-container {
   margin-top: 100px;
+  padding: 25px;
+  box-sizing: border-box;
+}
+div.xs-body-container h3:before {
+  content: ' ';
+  display: table;
+}
+.xs-form-container .xs-form-signin > div {
+  padding: 5px 0;
+}
+.xs-form-container .xs-form-signin > div > div {
+  float: left;
+  width: 85px;
+}
+.xs-form-container button {
+  padding: 5px 20px;
+}
+.xs-search-container .xs-search-terms .xs-input-pad {
+  padding: 10px 0;
+}
+.xs-search-container .xs-search-terms .xs-input-pad #searchterms {
+  margin-right: 20px;
+}
+.xs-search-container .xs-search-terms .xs-input-pad span {
+  font-size: 12px;
+}
+.xs-search-results {
+  padding: 0 40px;
+}
+.xs-search-results .xs-book-info {
+  margin-top: 20px;
+  list-style-type: none;
+}
+.xs-search-results .xs-book-info .xs-book-title {
+  display: block;
+  font-size: 24px;
+  font-color: blue;
+}
+.xs-search-results .xs-book-info .xs-book-score {
+  font-size: 12px;
+}
+.xs-search-results .xs-book-info .xs-book-exerpts {
+  padding: 10px 10px;
+  background-color: #eeeeee;
+  font-family: "Courier New", Courier, monospace;
+}
+.xs-search-results .xs-book-info .xs-book-exerpts h1,
+.xs-search-results .xs-book-info .xs-book-exerpts h2 {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+.xs-search-results .xs-book-info .xs-book-exerpts .hlt1 {
+  font-weight: bold;
+}
+.xs-search-results .xs-book-info .xs-book-exerpts:before,
+.xs-search-results .xs-book-info .xs-book-exerpts:after {
+  content: "...";
 }

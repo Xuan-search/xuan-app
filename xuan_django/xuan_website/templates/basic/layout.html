@@ -6,78 +6,51 @@
 {% load less %}
 {% load compress %}
 {% load compile_static %}
-<!--link rel="stylesheet"  href="{{STATIC_URL}}{% compile "css/xuan.less" %}" /-->
-{% compress css %}
-<link rel="stylesheet" type="text/less"  href="{{STATIC_URL}}css/xuan.less" />
-{% endcompress %}  
-</head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Xuan Search</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!--link rel="stylesheet"  href="{{STATIC_URL}}{% compile "css/xuan.less" %}" /-->
+    {% compress css %}
+	<link rel="stylesheet" type="text/less"  href="{{STATIC_URL}}css/xuan.less" />
+    {% endcompress %}  
+  </head>
   <body>
-        <nav class="xs-navbar">
-          <div class="xs-navbar-title">
-             
-            <div class="xs-navbar-name">
-              <h1>
-                <a class="xs-navbar-link" href="#">
+        <nav class="navbar navbar-inverse navbar-fixed-top xs-navbar">   
+            <div class="navbar-header xs-navbar-name">
+              
+                <a class="navbar-brand xs-navbar-link" href="#">
                   Xuan
                 </a>
-              </h1>
+              
             </div>
-            <div class="xs-navbar-toggle menu-icon"><a href="#"><span>menu</span></a></div>
-          </div>
-          <!-- <section class="top-bar-section">
-            <ul class="right">
-              <li class="divider"></li>
-              <li class="has-dropdown">
-                <a href="#">Main Item 1</a>
-                <ul class="dropdown">
-                  <li><label>Section Name</label></li>
-                  <li class="has-dropdown">
-                    <a href="#" class="">Has Dropdown, Level 1</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Dropdown Options</a></li>
-                      <li><a href="#">Dropdown Options</a></li>
-                      <li><a href="#">Level 2</a></li>
-                      <li><a href="#">Subdropdown Option</a></li>
-                      <li><a href="#">Subdropdown Option</a></li>
-                      <li><a href="#">Subdropdown Option</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li class="divider"></li>
-                  <li><label>Section Name</label></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">See all →</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li><a href="#">Main Item 2</a></li>
-              <li class="divider"></li>
-              <li class="has-dropdown">
-                <a href="#">Main Item 3</a>
-                <ul class="dropdown">
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li><a href="#">Dropdown Option</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">See all →</a></li>
-                </ul>
-              </li>
-            </ul>
-          </section> -->
-        </nav>
+            <div class="navbar-right xs-navbar-toggle">
+
+          	{% if request.user.is_authenticated %}
+                <span class='xs-loggedin-greet'>
+                Welcome {{ request.user.username }}!
+                <a href="/account/logout">Logout</a>
+                </span>
+          	{% else %}<a href="/account/login">Login</a>{% endif %}
+	   	|
+		<a href="#"><span>Menu</span></a>
+	    </div>
+	</nav>
 	<div class='xs-body-container'>
         {% block body_block %}Welcome to Xuan!{% endblock %}
 	</div>
   </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-  <script src="{% static 'js/json2.js' %}"></script>
-  <script src="{% static 'js/underscore-min.js' %}"></script>
-  <script src="{% static 'js/backbone.js' %}"></script>
+  <script src="{% static 'js/lib/json2.js' %}"></script>
+  <script src="{% static 'js/lib/jquery.min.js' %}"></script>
+  <script src="{% static 'js/lib/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/lib/underscore-min.js' %}"></script>
+  <script src="{% static 'js/lib/backbone.js' %}"></script>
   <script src="{% static 'js/xuan.js' %}"></script>
   <!--script src="{% static 'js/xuan.view.js' %}"></script-->
 </html>

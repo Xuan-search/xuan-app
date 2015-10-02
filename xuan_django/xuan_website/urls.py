@@ -1,9 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import RedirectView
 from . import views
-from .views import XSSearchView
+from .views import XSSearchView, XSBookView, XSLoginView, XSLogoutView
 
 urlpatterns = patterns(
 	'',
-	url(r'^search/',XSSearchView.as_view(), name='xs_search')
+	url(r'^search/',XSSearchView.as_view(), name='xs_search'),
+	url(r'^book/(?P<book_id>.*)/',XSBookView.as_view(), name='xs_book'),
+	url(r'^account/login/$',XSLoginView.as_view(), name='xs_login'),
+	url(r'^account/logout/$',XSLogoutView.as_view(),name='xs_logout')
 )

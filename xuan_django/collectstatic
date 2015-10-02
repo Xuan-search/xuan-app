@@ -1,0 +1,2 @@
+#!/bin/bash
+yes yes | ./manage.py collectstatic

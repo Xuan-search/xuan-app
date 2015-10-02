@@ -1,0 +1,6 @@
+{% extends 'basic/layout.html' %}
+
+
+{% block body_block %}
+{% autoescape off %}{{ book_content }}{% endautoescape %}
+{% endblock %}

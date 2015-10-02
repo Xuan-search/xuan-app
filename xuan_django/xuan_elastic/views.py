@@ -12,11 +12,38 @@ def search(request):
 	#terms = searchstring.split()
 	client = Elasticsearch('localhost:9200')
 	s = Search(client)
-	s = s.extra(size=1000)
+	if 'from' in request.GET:
+ 		s= s[10,int(request.GET['from'])]
+	#s = s.extra(size=10,from=offset)
 	s = s.extra(fields=['book_title'])
 	s = s.extra(partial_fields={"authors":{"include":"book_authors"}})
-	s = s.query("match",html_body={"query":searchstring.encode('utf8'),"operator":"and"})
-	response = client.search(index="xuan",doc_type="book",body=s.to_dict())
-	print response
-	#print searchstring
+	
+	searchword = 'match_phrase' if request.GET['exact']=='true' else 'match'
+	print(searchword)
+	s = s.query(searchword,html_body={"query":searchstring.encode('utf8'),"operator":"and"})
+	s = s.highlight('html_body',fragment_size=150,number_of_fragments=3)
+	s = s.highlight_options(pre_tags=["<em>"])
+	#s = s.highlight_options(tags_schema='styled')
+	response = client.search(index="xuan",doc_type="book",body=s.to_dict(),request_timeout=90)
 	return JsonResponse(response, safe=False)
+
+def searchFull(book_id,searchstring):
+        searchstring = searchstring.decode('utf8')
+	#terms = searchstring.split()
+        client = Elasticsearch('localhost:9200')
+        s = Search(client)
+        s = s.extra(fields=[])
+        s = s.filter("ids",values=[book_id])\
+	    .query("match",html_body={"query":searchstring.encode('utf8'),"operator":"and"})
+
+	s = s.highlight('html_body',number_of_fragments=0)
+        s = s.highlight_options(pre_tags=["<em id='xs-search-hit' class='xs-search-hit'>"])
+        response = client.search(index="xuan",doc_type="book",body=s.to_dict(),request_timeout=90)
+        #print searchstring
+        return response
+
+
+def getBookById(book_id):
+	client = Elasticsearch('localhost:9200')
+	return client.get(index='xuan',doc_type='book',id=book_id)
+
