@@ -2,5 +2,9 @@
 
 
 {% block body_block %}
+{% include 'basic/webreader.html' %}
+
+<!-- RSPEAK_START -->
 {% autoescape off %}{{ book_content }}{% endautoescape %}
+<!-- RSPEAK_STOP -->
 {% endblock %}

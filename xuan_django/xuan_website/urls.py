@@ -5,6 +5,7 @@ from .views import XSSearchView, XSBookView, XSLoginView, XSLogoutView
 
 urlpatterns = patterns(
 	'',
+	url(r'^$', RedirectView.as_view(url='search/',permanent=False), name='xs_index'),
 	url(r'^search/',XSSearchView.as_view(), name='xs_search'),
 	url(r'^book/(?P<book_id>.*)/',XSBookView.as_view(), name='xs_book'),
 	url(r'^account/login/$',XSLoginView.as_view(), name='xs_login'),

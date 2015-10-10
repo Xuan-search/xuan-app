@@ -13,6 +13,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Xuan Search</title>
 
+	<script language="javascript" type="text/javascript" 
+src="http://wr.readspeaker.com/a/webreader/webreader.js.php?cid=TYSVY0XL9FQV8U60D0XRD8D0NAULJJI2"></script>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <!--link rel="stylesheet"  href="{{STATIC_URL}}{% compile "css/xuan.less" %}" /-->
@@ -24,7 +26,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top xs-navbar">   
             <div class="navbar-header xs-navbar-name">
               
-                <a class="navbar-brand xs-navbar-link" href="#">
+                <a class="navbar-brand xs-navbar-link" href="/search">
                   Xuan
                 </a>
               
@@ -41,7 +43,7 @@
 		<a href="#"><span>Menu</span></a>
 	    </div>
 	</nav>
-	<div class='xs-body-container'>
+	<div class='xs-body-container loaded'>
         {% block body_block %}Welcome to Xuan!{% endblock %}
 	</div>
   </body>
