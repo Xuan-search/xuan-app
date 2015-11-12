@@ -19,10 +19,9 @@ def search(request):
 	s = s.extra(partial_fields={"authors":{"include":"book_authors"}})
 	
 	searchword = 'match_phrase' if request.GET['exact']=='true' else 'match'
-	print(searchword)
 	s = s.query(searchword,html_body={"query":searchstring.encode('utf8'),"operator":"and"})
-	s = s.highlight('html_body',fragment_size=150,number_of_fragments=3)
-	s = s.highlight_options(pre_tags=["<em>"])
+        s = s.highlight('html_body',fragment_size=150,number_of_fragments=3)
+        s = s.highlight_options(pre_tags=["<em>"])
 	#s = s.highlight_options(tags_schema='styled')
 	response = client.search(index="xuan",doc_type="book",body=s.to_dict(),request_timeout=90)
 	return JsonResponse(response, safe=False)
@@ -37,7 +36,7 @@ def searchFull(book_id,searchstring):
 	    .query("match",html_body={"query":searchstring.encode('utf8'),"operator":"and"})
 
 	s = s.highlight('html_body',number_of_fragments=0)
-        s = s.highlight_options(pre_tags=["<em id='xs-search-hit' class='xs-search-hit'>"])
+        s = s.highlight_options(pre_tags=["<em class='xs-search-hit'>"])
         response = client.search(index="xuan",doc_type="book",body=s.to_dict(),request_timeout=90)
         #print searchstring
         return response

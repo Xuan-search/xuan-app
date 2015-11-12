@@ -34,7 +34,7 @@ div.xs-body-container h3:before {
   float: left;
   width: 85px;
 }
-.xs-form-container button {
+.xs-form-container input.xs-form-submit {
   padding: 5px 20px;
 }
 #loader-wrapper {
@@ -131,4 +131,9 @@ div.xs-body-container h3:before {
   display: block;
   margin: 0 auto;
   width: 175px;
+}
+.xs-search-hit {
+  font-style: normal;
+  font-weight: bold;
+  background-color: #a36bb5;
 }

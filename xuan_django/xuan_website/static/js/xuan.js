@@ -9,41 +9,103 @@
 	};
 
 })(jQuery);
+
+
+var currentSearch = "";
+var searching = false;
+var baseUrl = (window.location&&window.location.origin?window.location.origin:"http://99xuan.com");
+
 Xuan.ttsReader = {
-	apiKey: '5aa6f086f1634e8f912342118ab4de9f',
 	locale: 'en-us',
-	url : 'http://api.voicerss.org/?key={0}&src={1}&hl={2}',
-	template: '<audio class="xs-tts-reader" controls type="audio/mpeg" autoplay></audio>',
+	url : '/api/audio?src={0}&hl={1}',
+	template: '<audio class="xs-tts-reader" controls autoplay type="audio/mpeg"></audio>',
 	renderTo:function(el){
-		this.$el = $(this.template).appendTo(el);
-		try{
-			window.AudioContext = window.AudioContext || window.webkitAudioContext;
-			this.audioContext = new AudioContext();
+		if(!el.find(".xs-tts-reader").get(0)){
+			//tts shouldn't exist on this page
+			return;
 		}
-		catch(e){
-    			alert('Web Audio API is not supported in this browser');
+		this.audioEl = el.find(".xs-tts-reader");
+		this.audioKitEnabled = true;
+		if(typeof AudioContext !=='undefined'){
+			this.audioContext = new AudioContext();		
+                	var audioSrc = this.audioContext.createMediaElementSource(this.audioEl.get(0));
+                
+			this.audioAnalyser = this.audioContext.createAnalyser();
+			audioSrc.connect(this.audioAnalyser);
+                
+			audioSrc.connect(this.audioContext.destination);
+
+                //audioSrc.connect(this.audioAnalyser);
+			this.avatarImg = el.find(".xs-tts-avatar");
+		}else{
+			this.audioKitEnabled = false;
+			el.find(".xs-tts-avatar").hide();
 		}
+		//this.$el = $(this.template).appendTo(el);
 		return this;
 	},
 	getSelectionText: function() {
     		var text = "";
 		if (window.getSelection) {
-        	text = window.getSelection().toString();
+        		text = window.getSelection().toString();
     		} else if (document.selection && document.selection.type != "Control") {
         		text = document.selection.createRange().text;
     		}
+		//remove server-breaking text
+		text = text.replace("—", ",");
     		return text;
 	},
 
 	getRequestUrl: function(){
-		return this.url.format(this.apiKey,
+		return baseUrl+this.url.format(
 			this.getSelectionText(),
 			this.locale)
 	},
-		
 	loadData: function(){
-		
-		this.$el.attr('src', this.getRequestUrl());
+		this.audioEl.attr('src', this.getRequestUrl());
+		if(!this.audioKitEnabled) return;
+		var $this = this;
+		this.audioEl.on('canplay',function(){
+			$this.audioEl.off('canplay');
+			var audio = $this.audioEl.get(0);
+			audio.play();
+			
+			$this.frequencyData = new Uint8Array($this.audioAnalyser.frequencyBinCount);			
+			$this.peakVolume = 0;
+			var animateAvatar = function(){
+				requestAnimationFrame(animateAvatar);
+				if(audio.paused){		
+					$this.avatarImg.attr('src', '/media/img/anim1.png');
+					return;		
+				}
+                		$this.audioAnalyser.getByteFrequencyData($this.frequencyData);
+				var animKey = 1;
+				var medThreshold = $this.peakVolume/2;
+				var highThreshold = $this.peakVolume/4*3;
+				var volume = 0;
+				var start = -1;
+				var end = -1;
+				var bandfreq = $this.frequencyData.length/4;
+				for(var i=0; i < bandfreq;i++){
+					if(start<0&&$this.frequencyData[i]>0){
+						start=i;
+					}
+					volume += $this.frequencyData[i];
+				}
+				volume = volume/bandfreq;
+				if($this.peakVolume<volume){
+					$this.peakVolume = volume;
+				}else if (highThreshold < volume){
+					animKey = 3;
+				}else if (medThreshold < volume){
+					animKey = 2;
+				}		
+				$this.avatarImg.attr('src', '/media/img/anim'+animKey+'.png');
+			};
+			animateAvatar();
+		});
+	
+			
 		/*
 		// get some kind of XMLHttpRequest
 		var xhrObj = new XMLHttpRequest();
@@ -99,12 +161,9 @@ Xuan.ttsReader = {
 
 
 
-var currentSearch = "";
-var searching = false;
-var baseUrl = (window.location&&window.location.origin?window.location.origin:"http://99xuan.com");
 function renderSearchResult(hit){
 	var template = "<li class='xs-book-info'>"+
-				"<a href='/book/{0}?q={3}#xs-search-hit' class='xs-book-title'>{1}</a></br>"+
+				"<a href='/book/{0}?q={3}' class='xs-book-title'>{1}</a></br>"+
 				//"<span class='xs-book-score'>Score:{2}</span>"+
 				"<div class='xs-book-exerpts'>{2}</div>"
 			"</li>";
@@ -129,7 +188,6 @@ function showSearchResults(data){
 	list.html("");
 	var hits = data.hits.hits;
 	for(ind in hits){
-		console.log(hits[ind]);
 		list.append(renderSearchResult(hits[ind]));
 	}
 	searching = false;
@@ -165,15 +223,19 @@ $(document).ready(function(){
         		: match;
    		 });
   		};
-	}	
+	}
+	var hit = $(".xs-search-hit").first();
+	if(hit.length){
+		$("html, body").animate({
+			scrollTop:hit.offset().top - $(".xs-navbar").height()
+		});
+	}
 	$("#search-form").submit(submitSearch);	
 	
 	var ttsReader = Xuan.ttsReader.renderTo($(".xs-reader"));
-	if(ttsReader.$el){
-		console.log("element found");
+	if(ttsReader){
 		$(".xs-reader").find(".xs-tts-play").click(
 			function(){
-				console.log("clicked");
 				ttsReader.loadData();
 			});
 
