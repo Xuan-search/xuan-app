@@ -121,6 +121,9 @@ div.xs-body-container h3:before {
 .xs-search-results .xs-book-info .xs-book-exerpts:after {
   content: "...";
 }
+.xs-search-results .xs-book-info .xs-book-details .xs-book-details-link {
+  cursor: pointer;
+}
 .xs-reader {
   position: fixed;
   right: 0px;

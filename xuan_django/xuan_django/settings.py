@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ELASTIC_ADDRESS = 'localhost:9200'
 
 # Application definition
 
@@ -38,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'haystack',
+    'bs4',
+    'nltk',
     'static_precompiler',
     'xuan_website',
 )

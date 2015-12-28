@@ -21,5 +21,6 @@ from django.contrib import admin
 urlpatterns = [
 	url(r'^', include('xuan_website.urls', namespace='xuan_search')),
 	url(r'^api/', include('xuan_elastic.urls', namespace='xuan_es')),
+        url(r'^language/', include('xuan_language.urls',namespace='xuan_lang')),
 	url(r'^admin/', include(admin.site.urls)),
 ]
