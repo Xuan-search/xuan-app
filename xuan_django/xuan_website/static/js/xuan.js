@@ -26,8 +26,7 @@
 
 
 Xuan.ttsReader = {
-	locale: 'en-us',
-	url : '/api/audio?src={0}&hl={1}',
+	url : '/api/audio?src={0}&voice={1}&speed={2}',
 	template: '<audio class="xs-tts-reader" controls autoplay type="audio/mpeg"></audio>',
 	renderTo:function(el){
 		if(!el.find(".xs-tts-reader").get(0)){
@@ -35,6 +34,8 @@ Xuan.ttsReader = {
 			return;
 		}
 		this.audioEl = el.find(".xs-tts-reader");
+		this.readerEl = el.find(".xs-tts-reader-voice");
+		this.speedEl = el.find(".xs-tts-reader-speed");
 		this.audioKitEnabled = true;
 		if(typeof AudioContext !=='undefined'){
 			this.audioContext = new AudioContext();		
@@ -69,7 +70,8 @@ Xuan.ttsReader = {
 	getRequestUrl: function(){
 		return Xuan.baseUrl+this.url.format(
 			this.getSelectionText(),
-			this.locale)
+			this.readerEl.val(),
+			this.speedEl.val())
 	},
 	loadData: function(){
 		this.audioEl.attr('src', this.getRequestUrl());

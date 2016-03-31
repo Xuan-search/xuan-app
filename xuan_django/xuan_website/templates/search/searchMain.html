@@ -11,15 +11,25 @@
 	<form id="search-form" class="search-form">
     		<div class="xs-search-terms">
        			<div class="xs-input-pad">
-            			<input id="searchterms" name="searchterms" placeholder="Search" type="text"/>
+            		<input id="searchterms" name="searchterms" placeholder="Search" type="text"/>
         			<div class="xs-search--exact-container">
-					<span>Match words exactly</span>
-					<input class='xs-search-checkbox xs-exact' name='exact-search' type='checkbox' checked/>
-					<span>Match whole phrase</span>
-					<input class='xs-search-checkbox xs-phrase' name='match-phrase' type='checkbox'/>
-					
+						<span>Match words exactly</span>
+						<input class='xs-search-checkbox xs-exact' name='exact-search' type='checkbox' checked/><br/>
+						<span>Match whole phrase</span>
+						<input class='xs-search-checkbox xs-phrase' name='match-phrase' type='checkbox'/>
+					</div>			
+					<span>Difficulty Filter:</span>
+					<select id="difficulty" class="xs-search-difficulty-select" name="difficulty">
+						<option value="">None</option>				 
+						<option value="difficulty_by_percentile">By Percentile</option>				 
+						<option value="difficulty_by_unique_tokens">By Word Count</option>
+						<option value="difficulty_by_frequency">By Comparative Frequency</option>
+					</select>
+					<span>Difficulty:</span>
+					<input class='xs-search-difficulty-fields from-difficulty' name='from_difficulty' type='text' disabled/>
+					<!--<span>To:</span>
+					<input class='xs-search-difficulty-fields to-difficulty' name='to_difficulty' type='text' disabled/>-->
 				</div>
-			</div>
     		</div>
     		<div class="clearfix">
     			<button type="submit" class='xs-es-search-submit xs-button'>

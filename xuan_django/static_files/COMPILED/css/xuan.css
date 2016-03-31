@@ -51,7 +51,6 @@ div.xs-body-container h3:before {
 }
 #loader-wrapper #loader {
   z-index: 1001;
-  background-image: url('/media/img/loader.gif');
   background-size: 64px 64px;
   width: 64px;
   height: 64px;
@@ -134,6 +133,23 @@ div.xs-body-container h3:before {
   display: block;
   margin: 0 auto;
   width: 175px;
+}
+.xs-reader .xs-tts-reader-options {
+  padding-top: 10px;
+}
+.xs-reader .xs-tts-reader-options .xs-tts-option {
+  padding: 5px;
+}
+.xs-reader .xs-tts-reader-options .xs-tts-option span {
+  float: left;
+  width: 90px;
+}
+.xs-reader .xs-tts-reader-options .xs-tts-option select {
+  width: 200px;
+}
+.xs-reader .xs-tts-avatar-wrapper > .xs-tts-avatar {
+  display: block;
+  margin: 0 auto;
 }
 .xs-search-hit {
   font-style: normal;

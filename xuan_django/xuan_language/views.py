@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.http import JsonResponse
 from django.apps import apps
 import nltk, re, pprint
-from nltk import word_tokenize
+from nltk.tokenize import RegexpTokenizer
 from bs4 import BeautifulSoup
 def tokenize(request):
     tokens =tokensForString(request.GET['text']) #nltk.word_tokenize(request.GET['text'])
@@ -14,14 +14,15 @@ def tokenize(request):
 
 def tokensForString(rawdoc):
     cleantext = BeautifulSoup(rawdoc,"html.parser").get_text()
-    tokens = word_tokenize(cleantext)
+    tokenizer = RegexpTokenizer(r'\w+')
+    tokens = tokenizer.tokenize(cleantext)
     frequencycounts = {}
     for token in tokens:
         if not is_number(token):
-            if token in frequencycounts:
-                frequencycounts[token]+=1
+            if token.lower() in frequencycounts:
+                frequencycounts[token.lower()]+=1
             else:
-                frequencycounts[token]=1
+                frequencycounts[token.lower()]=1
 
     frequencyarray = []
     for frequency in frequencycounts:
